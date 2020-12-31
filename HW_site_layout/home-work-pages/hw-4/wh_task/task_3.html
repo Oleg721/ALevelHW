@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task_3</title>
+  <style>
+
+    body {
+      margin: 0;
+    }
+
+    nav {
+      width: 220px;
+      background: grey;
+      height: 100%;
+      position: absolute;
+      left: -190px;
+      transition: left 500ms ease-out;
+    }
+
+    nav:hover {
+      left: 0;
+    }
+
+    ul {
+      margin-top: 40px;
+      margin-left: -10px;
+      list-style-type: none;
+    }
+
+    li {
+      margin-top: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: white;
+      transition: color 400ms ease-out;
+    }
+
+    li:before {
+      content: "   ";
+      display: inline-block;
+      width: 0.4em;
+      height: 0.4em;
+      border: solid 0.1em #582c0c;
+      background: darkgoldenrod;
+      margin-right: 0.4em;
+      margin-bottom: 0.1em;
+      transform: rotate(45deg);
+    }
+
+    li:hover {
+      color: darkgoldenrod;
+      cursor: pointer;
+    }
+
+    #menu-hear {
+      color: white;
+      font-size: 110%;
+      text-transform: uppercase;
+      margin: 7px;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform-origin: right top;
+      transform: rotate(90deg) translateX(50%);
+      transition: opacity 500ms ease-in;
+    }
+
+    nav:hover #menu-hear{
+      opacity: 0;
+    }
+
+
+  </style>
+</head>
+
+
+
+<body>
+
+<nav>
+  <div id="menu-hear">Menu here</div>
+  <ul>
+    <li>home</li>
+    <li>contacts</li>
+    <li>our team</li>
+    <li>about</li>
+    <li>news</li>
+  </ul>
+
+</nav>
+
+
+</body>
+</html>

@@ -1,0 +1,408 @@
+@font-face {
+    font-family: Nueva-std-regular;
+    src: url("../Fonts/Nueva_Std_Cond_Regular.otf");
+}
+
+@font-face {
+    font-family: minion-pro;
+    src: url("../Fonts/Minion-Pro-Regular.otf");
+}
+
+@font-face {
+    font-family: minion-pro-bold;
+    src: url("../Fonts/Minion-Pro-Bold.ttf");
+}
+
+
+body {
+    margin: 0;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+div.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+div.wrap {
+    display: flex;
+    flex-direction: column;
+    max-width: 1280px;
+    flex-grow: 1;
+}
+
+header {
+    display: flex;
+    justify-content: space-around;
+    flex-basis: 15.4rem;
+    background: #7614c9;
+}
+
+/*                                                    Logo background*/
+header > div {
+
+    width: 21.5rem;
+    /*    first option*/
+    /*    background-image: linear-gradient(#7614c9, #7614c9),
+                          linear-gradient(#270742, #270742),
+                          linear-gradient(#270742, #270742);
+        background-repeat: no-repeat, no-repeat,no-repeat;
+        background-size: 13.7% 15.7%, 76.5% 50%,23.7% 32.5%;
+        background-position: 72.75% 29.7%, left, 82.3% 12%;*/
+    /*second option*/
+    background-color: #270742;
+    clip-path: polygon(76.75% 75%,
+    0.2% 75%,
+    0.2% 25.2%,
+    76.75% 25.2%,
+    76.75% 40.7%,
+    86.5% 40.7%,
+    86.5% 8%,
+    62.8% 8%,
+    62.8% 40.7%,
+    76.75% 40.7%)
+}
+
+/*                                                    Logo text*/
+header .logo {
+    font-family: Nueva-std-regular;
+    font-size: 4.45rem;
+    padding: 12.6% 0 0 7.2%;
+    font-weight: normal;
+    letter-spacing: 0.36rem;
+    color: white;
+}
+
+header .logo .orange {
+    color: #d44709;
+}
+
+header .logo:first-letter {
+    color: #ff6c00;
+}
+
+/*                                                      content*/
+main.index-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+main.index-page > div {
+    display: flex;
+    height: 14.3rem;
+    width: 22rem;
+    margin: 1.9rem 1% 0 1%;
+    box-shadow: 0 0 0.7rem 0.3rem #7614C9;
+    border-radius: 0.7rem;
+    text-decoration: none;
+}
+
+.lesson-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #ff38ff;
+    background-image: linear-gradient(white, white), linear-gradient(white, white), linear-gradient(white, white);
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size: 2px 2px, 2px 2px, 2px 2px;
+    background-position: 45.6% 53%, 45.7% 61%, 45.7% 70%;
+}
+
+/*                                                link of number of lesson*/
+.lesson-container a.hw-number {
+    align-self: center;
+    text-decoration: none;
+    font-family: minion-pro;
+    font-weight: normal;
+    font-size: 2.4rem;
+    letter-spacing: 0.25rem;
+    word-spacing: -0.4rem;
+    white-space: nowrap;
+    text-transform: uppercase;
+    margin: 0.9rem 7% 1rem 5%;
+    color: white;
+    border-bottom: solid 0.05rem white;
+    padding: 0 1rem 0.3rem 1rem;
+    transition: color 300ms ease-in-out;
+}
+
+/*                                               container of task in lesson link*/
+.lesson-container > div {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding: 0.1rem 0.5rem 0 1.85rem;
+    overflow: auto;
+}
+
+/*                                                link of task in lesson link*/
+.lesson-container a.task-in-lesson {
+    margin-bottom: 1.25rem;
+    text-decoration: none;
+    width: 50%;
+    color: white;
+    transition: color 300ms ease-in-out;
+    font-size: 1.1rem;
+    word-spacing: 0.1rem;
+    letter-spacing: 0.05rem;
+}
+
+.lesson-container a.hw-number:hover,
+.lesson-container a.task-in-lesson:hover {
+    color: #7614c9;
+}
+
+/*                                                    ==== frame page ====*/
+
+.header-logo {
+    font-family: Mistral;
+    color: white;
+    margin: 5.8rem -0.5% auto 1.4rem;
+    font-size: 4.5rem;
+    letter-spacing: 0.3rem;
+}
+
+.header-logo:last-child {
+    font-size: 7rem;
+    margin: 4rem 17% auto 2rem;
+}
+
+
+main.frame-page {
+    display: flex;
+}
+
+ul.menu {
+    display: block;
+    list-style: none;
+    margin-top: 0;
+    margin-right: 1.3rem;
+    padding-left: 1.1rem;
+    width: 16.4rem;
+    height: 100%;
+    color: #ad54f6;
+    font-size: 0.8rem;
+
+}
+
+ul.menu > li {
+    font-family: minion-pro;
+
+    margin: 0.5rem 0.5rem 0;
+    cursor: pointer;
+}
+
+ul.menu > li:first-child {
+    margin-bottom: 2rem;
+    margin-left: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+ul.menu > li:first-child:hover {
+    color: #D44709
+}
+
+ul.menu > li:first-child:before {
+    content: "";
+    display: inline-block;
+    vertical-align: -0.35rem;
+    width: 2rem;
+    height: 1rem;
+    margin-right: 1.3rem;
+    background-image: url("../ico/left-arrow.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+ul.menu > li + li {
+    font-family: minion-pro-bold;
+    padding: 0.5rem 0.5rem 0.5rem 1.7rem;
+}
+
+ul.menu > li + li:hover {
+    color: white;
+    background-color: #ad54f6;
+}
+
+/*                                           frame*/
+.hw-frame {
+    width: 71%;
+    height: 42rem;
+    margin: 5rem auto 5rem 3rem;
+    border: solid 1px #7614C9;
+}
+
+ul.menu > li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#burger-menu-id {
+    position: absolute;
+    visibility: hidden;
+}
+
+/*                                           screen width 900*/
+@media screen and  (max-width: 900px) {
+    header div {
+        margin-left: 5rem;
+    }
+
+    .header-logo {
+        margin: 0.5rem 0.5rem 0.5rem 3rem;
+        font-size: 2.5rem;
+        height: 4rem;
+        position: absolute;
+        align-self: flex-end;
+        display: block;
+    }
+
+
+    .header-logo:last-child {
+        margin: 0.5rem 0.5rem 0.5rem 11rem;
+        font-size: 3.5rem;
+        height: 5rem;
+        position: absolute;
+        align-self: flex-end;
+        display: block;
+    }
+
+    ul.menu {
+        position: absolute;
+        left: -16.4rem;
+        top: 0;
+        padding-top: 3rem;
+        background-color: #270742;
+        color: white;
+        transition: left 300ms ease-in-out;
+        height: initial;
+        padding-top: 7rem;
+        padding-bottom: 2rem;
+        font-size: 1.3rem;
+    }
+
+    ul.menu li:first-child:after {
+    }
+
+
+    .hw-frame {
+        width: 94%;
+        height: 42rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2rem;
+
+    }
+
+    .burger-menu-label {
+        display: inline-block;
+        height: 3.5rem;
+        width: 3.5rem;
+        background-image: url("../ico/menu-button-of-three-horizontal-lines.svg ");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        transition: all 200ms ease-out;
+    }
+
+    .burger-menu-label:before {
+        content: "";
+        transition: all 200ms ease-out;
+    }
+
+    #burger-menu-id:checked ~ ul.menu {
+        left: 0;
+
+    }
+
+    #burger-menu-id:checked + .burger-menu-label {
+        z-index: 1;
+        top: 9%;
+        background-color: #ff6c00;
+        background-image: none;
+        height: 0.5rem;
+        transform: rotate(45deg);
+    }
+
+    #burger-menu-id:checked + .burger-menu-label:before {
+        content: "";
+        display: block;
+        background-color: #ff6c00;
+        height: 0.5rem;
+        transform: rotate(90deg);
+    }
+
+}
+
+/*                                           screen width 420*/
+@media screen and (max-width: 420px) {
+    /*                                          header*/
+    header > div {
+        width: 12rem;
+    }
+
+    header {
+        flex-basis: 8rem;
+
+    }
+
+    header .logo {
+        font-size: 2.7rem;
+        padding: 1.5rem 0 0 0.5rem;
+    }
+
+    /*                                          content*/
+    main.index-page > div {
+        height: 14.3rem;
+        width: 18rem;
+        margin: 1.9rem 1% 0 1%;
+    }
+
+    main.index-page > div {
+        min-width: 17rem;
+        margin: 1.9rem 1% 0 1%;
+    }
+
+    .lesson-container {
+        background-color: #ff38ff;
+        background-image: none;
+    }
+
+    .lesson-container > div {
+        flex-direction: column;
+    }
+
+    .lesson-container a.hw-number {
+        align-self: center;
+        font-size: 1.7rem;
+        margin: 0.9rem 7% 1rem 5%;
+    }
+
+    .burger-menu-label {
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+
+    .header-logo {
+        font-size: 2rem;
+        height: 2.7rem;
+        margin-left: 2rem;
+    }
+
+    .header-logo:last-child {
+        font-size: 3rem;
+        height: 3.7rem;
+        margin-left: 8rem;
+    }
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <head>
+    <style>
+      div.wrap {
+        width: min-content;
+      }
+
+      div.inner {
+
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+        border: 1px solid black;
+        transition: all 0.5s ease-in-out;
+      }
+
+      div.wrap:hover div.inner {
+        transform: translate(100px, 200px);
+      }
+
+    </style>
+  </head>
+<body>
+<div class="wrap">
+  <div class="inner"></div>
+</div>
+</body>
+</html>

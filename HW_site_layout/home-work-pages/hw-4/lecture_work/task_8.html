@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 8</title>
+  <style>
+    @keyframes scale {
+      from {
+        transform: translateX(0);
+      }
+
+
+      to {
+        transform: translateX(50%);
+
+      }
+    }
+
+
+    @keyframes bounce {
+      from {
+        top: 0;
+        animation-timing-function: ease-in
+      }
+      25%,55%,79%,100% {
+        top: 92%;
+        animation-timing-function: ease-out
+      }
+
+      40% {
+        top: 70%;
+        animation-timing-function: ease-in
+      }
+
+      67%{
+        top: 77%;
+        animation-timing-function: ease-in
+      }
+
+      89%{
+        top: 84%;
+        animation-timing-function: ease-in;
+      }
+
+    }
+
+    div.wrap {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      margin: auto;
+      border: solid 4px;
+    }
+
+    div.ball {
+      width: 8%;
+      height: 8%;
+      border: solid 1px;
+      border-radius: 100%;
+      background: brown;
+      position: absolute;
+      animation: bounce 4s infinite ;
+    }
+    div.wrap > div{
+      height: inherit;
+      animation: scale 4s infinite;
+    }
+
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div><div class="ball"></div></div>
+</div>
+</body>
+</html>

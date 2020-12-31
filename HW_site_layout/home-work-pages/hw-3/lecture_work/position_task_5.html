@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 5</title>
+  <style>
+    section{
+      position: relative;
+       width: 400px;
+      height: 400px;
+      margin-top:30px;
+    }
+    .square{
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border: solid 3px;
+      margin: 0;
+    }
+    .red{
+      border-color: red;
+      background: red;
+
+    }
+    .blue{
+      border-color: blue;
+      background: blue;
+      top: 50%;
+      left: 50%;
+      margin-top: -50px;
+      margin-left: -50px;
+    }
+
+    .green{
+      border-color: green;
+      background: green;
+      right: 0;
+      bottom: 0;
+      margin-left: auto;
+
+    }
+    /*                                ==== 1 ===*/
+    #a figure{
+      background: none;
+    }
+    /*                                 ==== 2 ===*/
+    #b figure{
+      background: none;
+      top: 50%;
+      margin-top: -50px;
+    }
+    /*                                ==== 3 ===*/
+    #c figure{
+      background: none;
+    }
+    #c {
+      width: 230px;
+      height: 230px;
+    }
+    /*                                ==== 4 ===*/
+    #d {
+      width: 230px;
+      height: 230px;
+    }
+    /*                                ==== 5 ===*/
+
+    #e {
+      width: 230px;
+      height: 230px;
+    }
+
+    #e .blue{
+      z-index: 1;
+    }
+
+    /*                               traffic lights*/
+    #tl{
+      position: absolute;
+      width: auto;
+      height: auto;
+      border: solid 2px black;
+    }
+
+    #tl figure{
+    position: static;
+      margin: 30px;
+      border-color: black;
+      border-radius: 50px;
+    }
+    #tl .blue{
+      background-color: yellow;
+    }
+
+  </style>
+</head>
+<body>
+<section id="a">
+  <figure class="square red"></figure>
+  <figure class="square blue"></figure>
+  <figure class="square green"></figure>
+</section>
+
+<section id="b">
+  <figure class="square red"></figure>
+  <figure class="square blue"></figure>
+  <figure class="square green"></figure>
+</section>
+
+<section id="c">
+  <figure class="square red"></figure>
+  <figure class="square blue"></figure>
+  <figure class="square green"></figure>
+</section>
+
+<section id="d">
+  <figure class="square red"></figure>
+  <figure class="square blue"></figure>
+  <figure class="square green"></figure>
+</section>
+
+<section id="e">
+  <figure class="square red"></figure>
+  <figure class="square blue"></figure>
+  <figure class="square green"></figure>
+</section>
+
+<section id="tl">
+  <figure class="square red"></figure>
+  <figure class="square blue"></figure>
+  <figure class="square green"></figure>
+</section>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://allfont.ru/allfont.css?fonts=liberation-serif" rel="stylesheet" type="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>блочный макет</title>
+  <style>
+    @font-face {
+      font-family: FreeMono; /* Имя шрифта */
+      src: url(FreeMono.ttf); /* Путь к файлу со шрифтом */
+    }
+
+
+    div#block-layout {
+      width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    main {
+      display: table;
+      width: 100%;
+    }
+
+    header {
+      margin: 5px;
+      height: 250px;
+      background-color: lightgray;
+    }
+
+    header img {
+      background: white;
+      margin: 10px;
+    }
+
+    #label {                    /*А-левелл*/
+      color: white;
+      font-family: FreeMono;
+/*      font-weight: bold;*/
+      margin-left: 25%;
+      line-height: 22px;
+      font-size: 70px;
+    }
+
+    #bottom-block {
+      float: right;
+      margin-top: 90px;
+      font-family: FreeMono;
+      /*     font-weight: bold;*/
+      font-size: 45px;
+      word-spacing: 0.4em;
+    }
+
+    #bottom-block span:first-child {    /*CSS*/
+      background: green;
+      color: white;
+       letter-spacing: -0.15em;
+      margin-right: 0.5em;
+    }
+
+    #bottom-block span:nth-child(2) { /*це*/
+      font-weight: normal;
+      letter-spacing: 0.5em;
+      color: white;
+    }
+
+    #bottom-block span:last-child {   /*Круто*/
+      background: darkgoldenrod;
+      color: white;
+      text-decoration: line-through;
+      letter-spacing: 0.15em;
+    }
+
+
+    article {
+      display: inline-block;
+      float: left;
+      width: 29.5%;
+      margin: 5px;
+      height: 900px;
+      font-family: 'Liberation Serif', arial;
+    }
+                               /*=========1==========*/
+    #column-1  {
+      padding: 10px;
+      text-align: justify;
+      background: steelblue;
+      color: white;
+      font-size: x-large;
+    }
+
+    #column-1 section:first-child:first-letter {
+      font-size: 200%;
+      margin-left: 0.5em;
+    }
+
+
+                           /*=========2==========*/
+    #column-2 {
+      position: relative;
+      padding: 10px;
+      background: green;
+      color: white;
+    }
+
+    #column-2 section {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%)
+    }
+
+
+    #column-2 div {
+      font-weight: bold;
+      margin-left: 1.5em; ;
+      font-size: 150%;
+    }
+
+    #column-2 li{
+      color :black;
+    }
+
+    #column-2 li span{
+      color :yellow;
+      margin-left: 0.7em;
+    }
+                            /*=========3==========*/
+
+    #column-3{
+      padding: 10px;
+    }
+
+    #column-3 div{
+      text-align: center;
+    }
+
+    #column-3 li{
+      list-style-type: none;
+    }
+
+
+    #column-3 li:before{
+        content: '\2718 \a0 \a0 \a0 \a0';
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+    .italic {
+      font-style: italic;
+    }
+
+
+  </style>
+
+</head>
+<body>
+<div id="block-layout">
+  <header>
+    <div><img src="img_l1.png"></div>
+    <div id="label">A-LeVeL</div>
+    <div id="bottom-block"><span>CSS</span><span>це</span><span>ķřутÖ</span></div>
+  </header>
+  <main>
+    <article id="column-1">
+      <section>
+        <span id="first" class="bold">Каскадные таблицы стилей (CSS)</span> используются для описания внешнего вида
+        документа, написанного языком разметки. CSS привносит <span class="bold">жизнь</span> в HTML-документ, выбирая
+        шрифты, применяя цвета, определяя отступы, позиционируя элементы, анимируя взаимодействия и многое другое.<span
+              class="bold">Объявление стиля состоит из двух частей:</span> элемента веб-страницы — <span
+              class="italic bold">селектора</span>, и команды форматирования — <span class="italic bold">блока объявления.</span>
+      </section>
+    </article>
+    <article id="column-2">
+      <section>
+        <div>Селекторы CSS:</div>
+        <ul>
+          <li><span>универсальными;</span></li>
+          <li><span>електором элемента;</span></li>
+          <li><span>классовый селектор;</span></li>
+          <li><span>селектор ID.</span></li>
+        </ul>
+      </section>
+    </article>
+    <article id="column-3">
+      <section>
+       <div class="italic"> Примеры селекторов:</div>
+
+       <ul>
+         <li>* {}</li>
+         <li>p.class {}</li>
+         <li>*.class {}</li>
+         <li>.class {}</li>
+         <li>span {}</li>
+         <li >div#id</li>
+         <li>span#id</li>
+         <li>article#id</li>
+       </ul>
+
+      </section>
+    </article>
+  </main>
+</div>
+</body>
+</html>

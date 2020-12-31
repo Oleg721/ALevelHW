@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 7</title>
+  <style>
+    section{
+      position: relative;
+      width: 700px;
+      height: 80px;
+    }
+    .download-bar{
+      position: relative;
+      background-color: steelblue;
+      height: 100%;
+      width: 10%;               /*<<<< filling bar*/
+      border-radius: 4px;
+    }
+    span{
+      font-size: 250%;
+      position: absolute;
+      z-index: 1;
+      left: 2%;
+      top: 50%;
+      margin-top: -0.625em;
+      color: green;
+    }
+    section span:nth-child(2){
+      left:50%;
+    }
+    section span:last-child{
+      right: 2%;
+      left: auto;
+    }
+    
+  </style>
+</head>
+<body>
+<section>
+  <span>0</span>
+  <span>63%</span>
+
+  <div class="download-bar"></div>
+  <span>100</span>
+</section>
+</body>
+</html>

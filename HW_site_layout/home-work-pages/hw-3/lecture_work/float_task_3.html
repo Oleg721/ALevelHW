@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 3</title>
+  <style>
+    main {
+      width: 450px
+    }
+
+    img {
+      margin: 5px;
+      width: 90px;
+      height: 150px;
+      float: left;
+    }
+
+    .square ,img[src$="=3"], img[src$="=4"], img[src$="=7"] {
+      height: 90px;
+    }
+
+    img[src$="=2"], img[src$="=5"], img[src$="=7"] {
+      clear: left;
+    }
+
+    div {
+      float: left
+    }
+
+
+  </style>
+</head>
+<body>
+
+<main>
+  <img src="http://placehold.it/100x150&text=1">
+  <img src="http://placehold.it/100x150&text=2">
+  <div>
+    <img src="http://placehold.it/100x150&text=3">
+    <img src="http://placehold.it/100x150&text=4">
+    <img src="http://placehold.it/100x150&text=5">
+    <img src="http://placehold.it/100x150&text=6">
+  </div>
+  <img src="http://placehold.it/100x150&text=7">
+
+  <p>С помощью float удобно группировать элементы на странице, но большой проблемой становится то, что последующие
+    элементы (текст или блок) также получают свойство обтекания. Например, у нас есть блок картинок:С помощью float
+    удобно группировать элементы на странице, но большой проблемой становится то, что последующие элементы (текст или
+    блок) также получают свойство обтекания. Например, у нас есть блок картинок:</p>
+</main>
+
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+@font-face {
+    font-family: FreeMono;
+    src: url("../fonts/FreeMono.ttf") ;
+}
+
+body,
+h1,
+h2,
+h3,
+h4{
+     margin: 0;
+ }
+h1,
+h2,
+h3,
+h4{
+    font-weight: normal;
+    line-height: 1;
+}
+
+div.wrap,
+header,
+article,
+footer {
+    border: solid 2px #d6d600;
+    box-sizing: border-box;
+
+}
+
+div.wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/*                                            top menu section*/
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-basis: 20%;
+    min-height: 17rem;
+}
+
+ul {
+    padding: 0;
+}
+
+ul.nav {
+    display: flex;
+    flex-basis: 30%;
+    align-items: baseline;
+    list-style-type: none;
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-left: 2rem;
+}
+
+
+.nav > li:first-child,
+.nav > li:last-child {
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 4rem;
+}
+
+.nav > li:first-child {
+    background-image: url("../img/ico/settings.svg");
+    background-position: left;
+    background-position: 10% 10%;
+    min-width: 3rem;
+    margin-right: auto;
+}
+
+.nav > li:last-child {
+    background-image: url("../img/a_level_logo.png");
+    background-position: right;
+    margin-right: 1%;
+    min-width: 13rem;
+    margin-left: auto;
+}
+
+/*                                              hidden menu navigations*/
+
+.drop-menu {
+    display: none;
+}
+
+.drop-menu > label {
+    display: inline-block;
+    background-image: url("../img/ico/menu-button-of-three-horizontal-lines.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 2rem;
+    width: 2rem;
+}
+
+.drop-menu input {
+    position: absolute;
+    opacity: 0;
+}
+
+/*                                             drop box menu container */
+.menu-box {
+    display: block;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: -100%;
+    width: 20rem;
+    margin: 0;
+    padding: 1rem 0;
+    list-style: none;
+    background-color: #ECEFF1;
+    box-shadow: 1px 0 6px rgba(0, 0, 0, .2);
+    transition: all 300ms ease-out;
+}
+
+/*                                                 drop box menu elements */
+.menu-item {
+    display: block;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 1rem 1rem 1rem 3rem;
+}
+
+/*                                              drop box close button */
+
+.menu-close-button {
+    display: block;
+    height: 2.5rem;
+    width: 2.5rem;
+    background-image: url("../img/ico/close-button.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin: 1rem 0 1rem 1.5rem;
+}
+
+#nav-trigger:checked ~ .menu-box {
+    visibility: visible;
+    left: 0;
+}
+
+/*                                              ===== ico =======*/
+
+.nav .ico,
+.ico:before {
+    transition: all 200ms ease-out;
+}
+
+.nav .ico:before {
+    content: "";
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 0.8rem;
+    height: 0.8rem;
+    display: inline-block;
+    margin-right: 0.3rem;
+    margin-left: 1rem;
+    vertical-align: -0.1rem;
+}
+
+.nav .ico:hover {
+    color: #5575bf;
+    position: relative;
+    cursor: pointer;
+}
+
+.nav .ico:hover:before {
+    margin-right: 0.15rem;
+    margin-left: 0.85rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    vertical-align: -0.3rem;
+}
+
+
+/*                                                  Усі*/
+.nav .ico-all:before {
+    background-image: url("../img/ico/loupe.svg");
+}
+
+/*                                                  Зображення*/
+.nav .ico-images:before {
+    background-image: url("../img/ico/image.svg");
+}
+
+/*                                                  Відео*/
+.nav .ico-video:before {
+    background-image: url("../img/ico/video.svg");
+}
+
+/*                                                  Новини*/
+.nav .ico-news:before {
+    background-image: url("../img/ico/newspaper.svg");
+}
+
+/*                                                  Покупки*/
+.nav .ico-purchases:before {
+    background-image: url("../img/ico/tag.svg");
+}
+
+/*                                                  Більше*/
+.nav .ico-more:before {
+    background-image: url("../img/ico/show-more-button-with-three-dots.svg");
+}
+
+/*                                                  Налаштування*/
+.nav .ico-settings:before {
+    background-image: url("../img/ico/settings _ico.svg");
+}
+
+/*                                                     ============*/
+
+section.middle {
+    color: #c1003f;
+    font-size: 3rem;
+    font-family: FreeMono;
+    font-weight: normal;
+    flex-grow: 1;
+}
+
+
+section.bottom {
+    display: flex;
+    font-size: 2.5rem;
+    font-weight: normal;
+    margin-left: auto;
+    margin-bottom: 1.5rem;
+    color: #c1003f;
+    font-family: FreeMono;
+}
+
+section.bottom h3:first-child {
+    background-color: #008100;
+    color: white;
+    margin-right: 0.5rem;
+}
+
+section.bottom h3:last-child {
+    background-color: #818100;
+    color: white;
+    text-decoration: line-through;
+    margin-left: 0.5rem;
+}
+
+/*                                        content section*/
+
+main {
+    display: flex;
+    flex-grow: 2;
+}
+
+article {
+    width: 33.33%;
+}
+
+/*                                    === 1 === */
+.column-1 {
+    padding: 0.7rem;
+    text-align: justify;
+    background: #72a0d0;
+    color: white;
+    font-size: 1.5rem;
+}
+.column-1 h4{
+    display: inline;
+}
+
+.column-1:first-child:first-letter {
+    font-size: 2rem;
+    margin-left: 0.5rem;
+}
+
+/*                                     === 2 === */
+.column-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    background: #0f8352;
+    color: white;
+}
+
+
+.column-2 ul {
+    padding-left: 1rem;
+}
+
+.column-2 li {
+    padding-left: 0.7rem;
+    font-size: 1.3rem;
+    color: yellow;
+}
+
+/*                                     === 3 === */
+
+.column-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #e9f3a2;
+    padding: 10px;
+    font-size: 1.3rem;
+}
+
+.column-3 h4 {
+    margin-top: 1rem;
+}
+
+.column-3 li {
+    list-style-type: none;
+}
+
+.column-3 li:before {
+    content: '\2718 \a0 \a0 \a0 \a0';
+    margin-right: 2rem;
+}
+
+
+/*                                              footer section*/
+footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer div {
+    background-image: url("../img/js_cup.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 10rem;
+    min-width: 30%;
+    margin: 0.5rem 0 3rem 0.5rem
+}
+
+footer p {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 0.3;
+    padding: 1rem 0 2.5rem 1rem;
+    margin-right: 1rem;
+    background-color: lightgray;
+    border: solid 0.05rem;
+    align-self: flex-end;
+    height: 3rem;
+    font-size: 1.2rem;
+}
+
+footer p span:last-child {
+    align-self: flex-end;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}

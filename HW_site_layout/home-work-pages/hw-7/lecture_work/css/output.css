@@ -1,0 +1,62 @@
+*, :after, :before {
+  margin: 0;
+}
+
+div.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div.wrap {
+  max-width: 900px;
+  position: absolute;
+  text-align: center;
+  font-family: Arial;
+}
+div.wrap > * {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+div.wrap header {
+  width: 50%;
+}
+div.wrap header h1 + p {
+  margin: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #a4a4a4;
+}
+div.wrap header p + p {
+  color: #babdbf;
+  line-height: 150%;
+}
+div.wrap main {
+  display: flex;
+  justify-content: space-between;
+}
+div.wrap main section div {
+  height: 4rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 1.4rem;
+}
+div.wrap main section p {
+  color: #babdbf;
+  margin-top: 0.8rem;
+}
+div.wrap main section:nth-child(1) div {
+  background-image: url("../img/copywriting.svg");
+}
+div.wrap main section:nth-child(2) div {
+  background-image: url("../img/boss.svg");
+}
+div.wrap main section:nth-child(3) div {
+  background-image: url("../img/worker.svg");
+}
+div.wrap .button {
+  margin-top: 2.5rem;
+}
+
+/*# sourceMappingURL=output.css.map */

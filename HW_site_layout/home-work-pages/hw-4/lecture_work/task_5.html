@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 5</title>
+    <style>
+        div{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-top: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            border: solid 1px chocolate;
+        }
+
+        div.a:hover{
+            transform-origin: left bottom;
+            transform: rotate(45deg);
+        }
+
+        div.b:hover{
+            transform-origin: 50%;
+            transform: rotate(45deg);
+        }
+
+        div.c:hover{
+            transform-origin: top right;
+            transform:rotate(-45deg);
+        }
+
+        div.d:hover{
+            transform-origin: right bottom;
+            transform:scale(2, 2) ;
+        }
+
+        div.e:hover{
+            transform-origin: right bottom;
+            transform:skew(45deg) ;
+        }
+    </style>
+</head>
+<body>
+<div class="a"></div>
+<div class="b"></div>
+<div class="c"></div>
+<div class="d"></div>
+<div class="e"></div>
+</body>
+</html>
