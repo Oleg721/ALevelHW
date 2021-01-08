@@ -222,12 +222,13 @@ ul.menu > li:first-child:before {
     background-position: center;
 }
 
-ul.menu > li + li {
+ul.menu > li + li a{
+    display: block;
     font-family: minion-pro-bold;
     padding: 0.5rem 0.5rem 0.5rem 1.7rem;
 }
 
-ul.menu > li + li:hover {
+ul.menu > li + li a:hover {
     color: white;
     background-color: #ad54f6;
 }
