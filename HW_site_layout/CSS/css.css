@@ -13,6 +13,10 @@
     src: url("../Fonts/Minion-Pro-Bold.ttf");
 }
 
+@font-face {
+    font-family: Mistral;
+    src: url("../Fonts/mistral.ttf");
+}
 
 body {
     margin: 0;
@@ -365,7 +369,8 @@ ul.menu > li a {
 
     /*                                          content*/
     main.index-page > div {
-        height: 14.3rem;
+
+        height: auto;
         width: 18rem;
         margin: 1.9rem 1% 0 1%;
     }
