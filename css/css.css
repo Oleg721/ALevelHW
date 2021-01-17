@@ -233,6 +233,10 @@ ul.menu > li + li a{
     padding: 0.5rem 0.5rem 0.5rem 1.7rem;
 }
 
+ul.menu > li .active-a{
+    color: #d44709;
+}
+
 ul.menu > li + li a:hover {
     color: white;
     background-color: #ad54f6;
@@ -240,10 +244,15 @@ ul.menu > li + li a:hover {
 
 /*                                           frame*/
 .hw-frame {
+    display: none;
     width: 71%;
     height: 42rem;
     margin: 5rem auto 5rem 3rem;
     border: solid 1px #7614C9;
+}
+
+.hw-frame:target{
+    display: initial;
 }
 
 ul.menu > li a {
