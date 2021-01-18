@@ -94,7 +94,7 @@ main.index-page {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-
+    padding-bottom: 1rem;
 }
 
 main.index-page > div {
