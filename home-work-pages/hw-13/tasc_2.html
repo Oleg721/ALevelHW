@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recipe</title>
+
+  <script>
+
+    var pan = [];
+    var fryingPan = [];
+    var ingredientList = {
+        "meet"            : "450",
+        "meet products"   : "300",
+        "vegetable Oil"    : "2",
+        "clove of Garlic" : "2-4",
+        "bulb"            : "1",
+        "tomato paste"    : "1",
+        "pickles"         : "2-4",
+        "olives"          : "to taste",
+        "salt"            : "to taste",
+        "paper"           : "to taste",
+        "spices"          : "to taste",
+        "green"           : "to taste",
+    }
+
+    var ingredientValue = {
+        "gram"   : ["meet",
+                    "meet products",
+                    "salt",
+                    "paper",
+                    "spices",
+                    "green"],
+
+        "tbsp"   : ["vegetable Oil",
+                   "tomato paste"],
+
+        "pieces" : ["clove of Garlic",
+                    "bulb",
+                    "pickles",
+                    "olives"],
+
+    }
+
+    var stove = {
+
+    }
+
+
+
+
+    function makeSolyanka(ingredientList){
+      prepareIngredients(ingredientList)
+    }
+
+
+    function prepareIngredients(ingredientList) {
+
+      var ingredients = [];
+      var ingridient = null;
+
+        while (ingridient !== "exit"){
+
+            ingridient = prompt("please add an ingredient from the list in format [ingredient value] for example - \"meet 500\" :"
+                + printIngredientList(ingredientList));
+
+            ingredients.push(ingridient);
+            console.log(ingredients);
+        }
+
+      return ingredients
+    }
+
+
+    function getIngredientValue(ingredientName){
+
+        for (var ingrVal in ingredientValue){
+              if (ingredientValue[ingrVal].includes(ingredientName))
+                  return ingrVal;
+        }
+        return ""
+    }
+
+
+    function printIngredientList(ingredientList){
+        var ingrPrintstr = "\n===================";
+        for (var ingrPrintKay in ingredientList){
+            ingrPrintstr = ingrPrintstr + "\n"+ ingrPrintKay +
+                                          " - " + ingredientList[ingrPrintKay] +
+                                          " " + getIngredientValue(ingrPrintKay);
+        }
+        return ingrPrintstr;
+    }
+
+      makeSolyanka(ingredientList);
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>
