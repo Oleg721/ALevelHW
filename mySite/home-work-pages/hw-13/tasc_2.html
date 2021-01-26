@@ -8,6 +8,7 @@
 
       let pan = [];
       let fryingPan = [];
+      const ingredientNamePattern = /^([A-Za-z]+\s+){1,3}\d+$/;
       const ingredientList = {
           "meet"            : "450",
           "meet products"   : "300",
@@ -40,31 +41,44 @@
                     "olives"],
       }
 
-      function ingredient(ingredientName, ingredientQuantity){
-          this.name = ingredientName;
-          this.quantity = ingredientQuantity;
-          this.washed = false;
-          this.sliced = false;
-      }
+
+
 
     let stove = {
     }
 
 
-    function makeSolyanka(ingredientList){
-      prepareIngredients(ingredientList)
+    function makeSolyanka(ingredientList, ingredientPattern){
+      prepareIngredients(ingredientList, ingredientPattern);
     }
 
 
-    function prepareIngredients(ingredientList) {
+    function prepareIngredients(ingredientList, ingredientPattern) {
 
-      let ingredients = [];
       let ingredient = null;
+      let ingredients = [];
+      let ingredientName = "";
+      let ingredientValue = 0;
 
         while (ingredient != "exit"){
 
-            ingredient = setIngredientDisplay();
-            checkIngredientByList(ingredient, 450, ingredientList);
+            ingredient = userEnterIngredientInput();
+
+            /*pattern matching*/
+            if (!isIngredientPatternMatching(ingredient, ingredientPattern)){
+                massageOutput("===> the entered value does not match the pattern ");
+                continue;
+            } else
+                [ingredientName, ingredientValue] = ingredient.split(/\s+(?=\d+)/);
+
+            /*check for content in the list of ingredients*/
+            if (!ingredientList[ingredientName]){
+                massageOutput("===> there is no such ingredient in the recipe");
+                continue;
+            } else
+                ingredient = userEnterToIngredientObject(ingredientName, ingredientValue);
+
+
             ingredients.push(ingredient);
             console.dir(ingredients);
         }
@@ -92,28 +106,36 @@
                       " - " + ingredientList[key] +
                       " " + getIngredientValueByName(key);
         }
-        console.log(value);
         return value;
     }
 
 
-    function setIngredientDisplay() {
+    function userEnterIngredientInput() {
           return prompt("please add an ingredient from the list in " +
               "format [ingredient value] for example - \"meet 500\" :"
-              + printIngredientList(ingredientList), "exit-").toLowerCase();
+              + printIngredientList(ingredientList), "meet 777");
     }
 
 
-    function checkIngredientByList(ingredient, quantity, ingredientList) {
+    function isIngredientPatternMatching(userIngredient, ingredientPattern) {
+
+          if (!userIngredient) return false;
+          if (!userIngredient.match(ingredientPattern)) return false;
+
+        return true;
+    }
+
+
+/*    function checkIngredientByList(ingredient, quantity, ingredientList) {
 
           for(let key in ingredientList){
               if (key === ingredient) {
-                  console.log(isEqualSizeIngredientOfList(ingredient, quantity, ingredientList));   /*<< this is zaglushka*/
+                  console.log(isEqualSizeIngredientOfList(ingredient, quantity, ingredientList));   /!*<< this is zaglushka*!/
                   return true
               }
           }
         return false
-    }
+    }*/
 
 
     function isEqualSizeIngredientOfList(name, quantity, ingredientList){
@@ -124,7 +146,24 @@
           return -1
     }
 
-      makeSolyanka(ingredientList);
+
+    function userEnterToIngredientObject(ingredientName, ingredientQuantity){
+          return new createIngredientObject(ingredientName, ingredientQuantity);
+    }
+
+
+    function createIngredientObject(ingredientName, ingredientQuantity){
+          this.name = ingredientName;
+          this.quantity = ingredientQuantity;
+          this.washed = false;
+          this.sliced = false;
+      }
+
+    function massageOutput(massage) {
+          console.log(massage);
+      }
+
+      makeSolyanka(ingredientList, ingredientNamePattern);
 
   </script>
 </head>
