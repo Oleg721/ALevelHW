@@ -6,24 +6,24 @@
 
   <script>
 
-    var pan = [];
-    var fryingPan = [];
-    var ingredientList = {
-        "meet"            : "450",
-        "meet products"   : "300",
-        "vegetable Oil"    : "2",
-        "clove of Garlic" : "2-4",
-        "bulb"            : "1",
-        "tomato paste"    : "1",
-        "pickles"         : "2-4",
-        "olives"          : "to taste",
-        "salt"            : "to taste",
-        "paper"           : "to taste",
-        "spices"          : "to taste",
-        "green"           : "to taste",
-    }
+      let pan = [];
+      let fryingPan = [];
+      const ingredientList = {
+          "meet"            : "450",
+          "meet products"   : "300",
+          "vegetable Oil"   : "2",
+          "clove of Garlic" : "2-4",
+          "bulb"            : "1",
+          "tomato paste"    : "1",
+          "pickles"         : "2-4",
+          "olives"          : "to taste",
+          "salt"            : "to taste",
+          "paper"           : "to taste",
+          "spices"          : "to taste",
+          "green"           : "to taste",
+      };
 
-    var ingredientValue = {
+      const ingredientValue = {
         "gram"   : ["meet",
                     "meet products",
                     "salt",
@@ -38,14 +38,17 @@
                     "bulb",
                     "pickles",
                     "olives"],
+      }
 
+      function ingredient(ingredientName, ingredientQuantity){
+          this.name = ingredientName;
+          this.quantity = ingredientQuantity;
+          this.washed = false;
+          this.sliced = false;
+      }
+
+    let stove = {
     }
-
-    var stove = {
-
-    }
-
-
 
 
     function makeSolyanka(ingredientList){
@@ -55,40 +58,70 @@
 
     function prepareIngredients(ingredientList) {
 
-      var ingredients = [];
-      var ingridient = null;
+      let ingredients = [];
+      let ingredient = null;
 
-        while (ingridient !== "exit"){
+        while (ingredient != "exit"){
 
-            ingridient = prompt("please add an ingredient from the list in format [ingredient value] for example - \"meet 500\" :"
-                + printIngredientList(ingredientList));
-
-            ingredients.push(ingridient);
-            console.log(ingredients);
+            ingredient = setIngredientDisplay();
+            checkIngredientByList(ingredient, 450, ingredientList);
+            ingredients.push(ingredient);
+            console.dir(ingredients);
         }
 
       return ingredients
     }
 
 
-    function getIngredientValue(ingredientName){
+    function getIngredientValueByName(ingredientName){
 
-        for (var ingrVal in ingredientValue){
-              if (ingredientValue[ingrVal].includes(ingredientName))
-                  return ingrVal;
+        for (let key in ingredientValue){
+              if (ingredientValue[key].includes(ingredientName))
+                  return key;
         }
         return ""
     }
 
 
     function printIngredientList(ingredientList){
-        var ingrPrintstr = "\n===================";
-        for (var ingrPrintKay in ingredientList){
-            ingrPrintstr = ingrPrintstr + "\n"+ ingrPrintKay +
-                                          " - " + ingredientList[ingrPrintKay] +
-                                          " " + getIngredientValue(ingrPrintKay);
+
+        let value = "\n===================";
+
+        for (let key in ingredientList){
+            value = value + "\n"+ key +
+                      " - " + ingredientList[key] +
+                      " " + getIngredientValueByName(key);
         }
-        return ingrPrintstr;
+        console.log(value);
+        return value;
+    }
+
+
+    function setIngredientDisplay() {
+          return prompt("please add an ingredient from the list in " +
+              "format [ingredient value] for example - \"meet 500\" :"
+              + printIngredientList(ingredientList), "exit-").toLowerCase();
+    }
+
+
+    function checkIngredientByList(ingredient, quantity, ingredientList) {
+
+          for(let key in ingredientList){
+              if (key === ingredient) {
+                  console.log(isEqualSizeIngredientOfList(ingredient, quantity, ingredientList));   /*<< this is zaglushka*/
+                  return true
+              }
+          }
+        return false
+    }
+
+
+    function isEqualSizeIngredientOfList(name, quantity, ingredientList){
+          if (quantity === +ingredientList[name])
+              return 1;
+          else if (quantity >= ingredientList[name])
+              return 0;
+          return -1
     }
 
       makeSolyanka(ingredientList);
