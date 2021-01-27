@@ -6,32 +6,11 @@
 
   <script>
 
-      let arr = [5, 2, 1, 4];
-
-      function minSum(arr) {
-
-          let sum = 0;
-
-          for (let i = 0; i < 2; i++) {
-              sum = sum + minValue(arr);
-              arr.splice(arr.indexOf(minValue(arr)), 1);
-
-          }
-          return sum
+      function getMin(){
+          return Math.min(arguments);
       }
 
-
-      function minValue(arr) {
-          let value = arr[0];
-
-          for (let i = 0; i < arr.length; i++) {
-              if (value > arr[i])
-                  value = arr[i];
-          }
-          return value;
-      }
-
-      console.log(minSum(arr));
+      console.log(getMin(2,45,26,78,76))
 
   </script>
 </head>
