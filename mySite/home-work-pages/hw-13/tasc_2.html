@@ -6,6 +6,15 @@
 
   <script>
 
+      const MSG_NOT_ADD = "you haven't added anything"
+      const MSG_NOT_PATTERN = "the entered value does not match the pattern "
+      const MSG_NOT_INGREDIENT = "there is no such ingredient in the recipe"
+      const MSG_FULL_ARR = "the ingredient is in full"
+      const MSG_START_MENU = "please add an ingredient from the list in " +
+                              "format [ingredient value] for example - \"meet 500\" :"
+
+
+
       let pan = [];
       let fryingPan = [];
       const ingredientNamePattern = /^([A-Za-z]+\s+){1,3}\d+$/;
@@ -24,7 +33,7 @@
           "green"           : "to taste",
       };
 
-      const ingredientValue = {
+      const ingredientDimension = {
         "gram"   : ["meet",
                     "meet products",
                     "salt",
@@ -48,56 +57,54 @@
     }
 
 
-    function makeSolyanka(ingredientList, ingredientPattern){
-      prepareIngredients(ingredientList, ingredientPattern);
+    function makeSolyanka(ingredientList, ingredientPattern, ingredientDimension){
+      prepareIngredients(ingredientList, ingredientPattern, ingredientDimension);
     }
 
 
-    function prepareIngredients(ingredientList, ingredientPattern) {
+    function prepareIngredients(ingredientList, ingredientPattern, ingredientDimension) {
 
       let ingredient = null;
       let ingredientArr = [];
       let ingredientName = "";
-      let ingredientQuantity = 0;
+      let ingredientValue = 0;
 
         while (ingredient != "exit"){
-            ingredient = userEnterIngredientInput();
+            ingredient = inputUserEnterIngredient().trim();
+
             /*pattern matching*/
             if (isIngredientPatternMatching(ingredient, ingredientPattern))
-                [ingredientName, ingredientQuantity] = ingredient.split(/\s+(?=\d+)/);
+                [ingredientName, ingredientValue] = ingredient.split(/\s+(?=\d+)/);
+                if (ingredientValue === 0){
+                    massageOutput(MSG_NOT_ADD);
+                    continue;}
             else{
-                massageOutput("===> the entered value does not match the pattern ");
+                massageOutput(MSG_NOT_PATTERN);
                 continue;
             }
 
             /*check for content in the list of ingredients*/
             if (ingredientList[ingredientName])
                 ingredient = new createIngredientObject(ingredientName,
-                                                        ingredientQuantity,
-                                                        getIngredientValueByName(ingredientName, ingredientValue));
+                                                        ingredientValue,
+                                                        getIngredientDimensionByName(ingredientName,
+                                                                                     ingredientDimension));
              else{
-                massageOutput("===> there is no such ingredient in the recipe");
+                massageOutput(MSG_NOT_INGREDIENT);
                 continue;
             }
 
-
+            /*check value and add to ingredient array*/
             if (checkIngredientByName(ingredient, ingredientArr)){
-                if(+ingredientList[ingredient.name] === findQuantityIngredientByName(ingredient, ingredientArr)){
-                    massageOutput("===> the ingredient is in full");
+                if(+ingredientList[ingredient.name] <= +findValueIngredientByName(ingredient, ingredientArr)){
+                    massageOutput(MSG_FULL_ARR);
                     continue;
                 } else {
-/*Refactoring*/
-                    let ingQuantity = findQuantityIngredientByName(ingredient, ingredientArr)
-                    ingredient.quantity = +ingredient.quantity + ingQuantity;
-                    ingredientArr.splice(ingredientArr.indexOf(findIngredientByName(ingredient, ingredientArr)));
-                    checkQuantityAddIngredient(ingredient, ingredientArr, ingredientList);
-/*Refactoring*/
+                    sumAndAddIngredient(ingredient, ingredientArr, ingredientList)
                 }
-
             } else {
-                checkQuantityAddIngredient(ingredient, ingredientArr, ingredientList);
+                checkValueAddIngredient(ingredient, ingredientArr, ingredientList);
             }
-
 
 
             console.dir(ingredientArr);
@@ -107,7 +114,7 @@
     }
 
 
-    function getIngredientValueByName(ingredientName, ingredientValue){
+    function getIngredientDimensionByName(ingredientName, ingredientValue){
 
         for (let key in ingredientValue){
               if (ingredientValue[key].includes(ingredientName))
@@ -124,16 +131,14 @@
         for (let key in ingredientList){
             value = value + "\n"+ key +
                       " - " + ingredientList[key] +
-                      " " + getIngredientValueByName(key);
+                      " " + getIngredientDimensionByName(key);
         }
         return value;
     }
 
 
-    function userEnterIngredientInput() {
-          return prompt("please add an ingredient from the list in " +
-              "format [ingredient value] for example - \"meet 500\" :"
-              + printIngredientList(ingredientList), "meet 777");
+    function inputUserEnterIngredient() {
+          return prompt(MSG_START_MENU + printIngredientList(ingredientList), "meet 777");
     }
 
 
@@ -144,10 +149,10 @@
     }
 
 
-    function createIngredientObject(ingredientName, ingredientQuantity, value){
+    function createIngredientObject(ingredientName, ingredientValue, dimension){
           this.name = ingredientName;
-          this.quantity = ingredientQuantity;
-          this.value = value;
+          this.value = ingredientValue;
+          this.dimension = dimension;
           this.washed = false;
           this.sliced = false;
     }
@@ -161,24 +166,26 @@
           return false
     }
 
-      function findQuantityIngredientByName(ingredient, ingredientsArr) {
-          for (let key of ingredientsArr){
-              if (key.name === ingredient.name) return key.quantity;
-          }
-      }
 
-      function findIngredientByName(ingredient, ingredientsArr) {
+    function findValueIngredientByName(ingredient, ingredientsArr) {
+          for (let key of ingredientsArr){
+              if (key.name === ingredient.name) return key.value;
+          }
+    }
+
+
+    function findIngredientByName(ingredient, ingredientsArr) {
           if (ingredientsArr.length === 0) return null;
           for (let key of ingredientsArr){
               if (key.name === ingredient.name) return key;
           }
           return null;
-      }
+    }
 
 
-    function compareQuantityByList(ingredient, ingredientList) {
+    function compareValueByList(ingredient, ingredientList) {
 
-        let ingredientQuantity = ingredient.quantity;
+        let ingredientQuantity = ingredient.value;
         let ingredientName = ingredient.name;
         let valueByList = Number(ingredientList[ingredientName]);
 
@@ -187,49 +194,79 @@
         return 0;
     }
 
-    function checkQuantityAddIngredient(ingredient, ingredientArr, ingredientList) {
 
-        switch (compareQuantityByList(ingredient, ingredientList)) {
+    function checkValueAddIngredient(ingredient, ingredientArr, ingredientList) {
+        switch (compareValueByList(ingredient, ingredientList)) {
 
         case -1:
-            ingredient.quantity =+ ingredient.quantity;
-            if (compareQuantityByList(ingredient, ingredientList) === 0) {
-                ingredientArr.push(ingredient);
-                console.log(`Ingredient ${ingredient.name} has been prepared`);
-            } else {
-                addNotAll(ingredient, ingredientArr, ingredientList)
-            }
+            addLessIngredients(ingredient, ingredientArr, ingredientList)
             break;
 
         case 0:
             ingredientArr.push(ingredient);
-            console.log(`Ingredient ${ingredient.name} has been prepared`);
+            massageOutput(`Ingredient ${ingredient.name} has been prepared`);
             break;
 
         case 1:
-            let i = ingredient.quantity - ingredientList[ingredient.name];
-            ingredient.quantity = ingredientList[ingredient.name];
-            ingredientArr.push(ingredient);
-            console.log(`Ingredient ${ingredient.name} has been prepared`+
-                `but left ${i} ${ingredient.value}`);
+            addExcessIngredients(ingredient, ingredientArr, ingredientList)
             break;
+       }
     }
 
+
+    function sumAndAddIngredient(ingredient, ingredientArr, ingredientList) {
+
+        let ingredientValue = findValueIngredientByName(ingredient, ingredientArr)
+        let duplicateInArr = findIngredientByName(ingredient, ingredientArr);
+        ingredient.value = Number(ingredient.value) + Number(ingredientValue);
+                                                                            console.log("========"+ ingredient.value);
+        ingredientArr.splice(ingredientArr.indexOf(duplicateInArr));
+        checkValueAddIngredient(ingredient, ingredientArr, ingredientList);
     }
+
+
+    function addLessIngredients(ingredient, ingredientArr, ingredientList) {
+
+          ingredient.value =+ ingredient.value;
+
+          if (compareValueByList(ingredient, ingredientList) === 0) {
+              ingredientArr.push(ingredient);
+              massageOutput(`Ingredient ${ingredient.name} has been prepared`);
+          } else {
+              addNotAll(ingredient, ingredientArr, ingredientList)
+          }
+    }
+
 
     function addNotAll(ingredient, ingredientObjs, ingredientList){
-        let i = ingredientList[ingredient.name] - ingredient.quantity ;
+
+        let i = ingredientList[ingredient.name] - ingredient.value ;
+
         ingredientObjs.push(ingredient);
-        console.log(`Ingredient ${ingredient.name} has been prepared`+
+        massageOutput(`Ingredient ${ingredient.name} has been prepared`+
             `but ${i} are missing`);
     }
 
-    function massageOutput(massage) {
-          console.log(massage);
+    
+    function addExcessIngredients(ingredient, ingredientArr, ingredientList) {
+
+        let i = ingredient.value - ingredientList[ingredient.name];
+
+        ingredient.value = ingredientList[ingredient.name];
+        ingredientArr.push(ingredient);
+        massageOutput(`Ingredient ${ingredient.name} has been prepared`+
+            `but left ${i} ${ingredient.dimension}`);
     }
 
 
-      makeSolyanka(ingredientList, ingredientNamePattern);
+
+
+    function massageOutput(massage) {
+          console.log("====>" + massage);
+    }
+
+
+      makeSolyanka(ingredientList, ingredientNamePattern, ingredientDimension);
 
   </script>
 </head>
