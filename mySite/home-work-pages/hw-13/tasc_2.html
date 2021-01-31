@@ -66,8 +66,16 @@
 
 
     function makeSolyanka(ingredientList, ingredientPattern, ingredientDimensionList){
-      let preparedIngredients = [];
-         preparedIngredients = prepareIngredients(ingredientList, ingredientPattern, ingredientDimensionList);
+
+        let preparedIngredients = [];
+        preparedIngredients = prepareIngredients(ingredientList, ingredientPattern, ingredientDimensionList);
+
+
+        firstStep(pan,
+                  getIngredientByName("meet", preparedIngredients),
+                  getIngredientByName("meet products", preparedIngredients));
+
+
     }
 
 
@@ -86,7 +94,7 @@
 
             ingredient = inputUserEnterIngredient(ingredientList, ingredientDimensionList);
 
-            if (ingredient === "QUICK_MOD")
+            if (ingredient === "QM")
                 return quickEnterIngredientArr(ingredientList, ingredientDimensionList);
 
             /*checking the template entered by the user*/
@@ -127,8 +135,10 @@
             if(missingIngredients.length === 0)
                 isFullIngredient = true;
 
-            console.dir(ingredientArr);
-            console.dir(missingIngredientsByList(ingredientArr, ingredientList, ingredientDimension));
+            console.log("you need to add these ingredients" +
+                printIngredientArr(missingIngredients, ingredientDimensionList));
+/*            console.dir(ingredientArr);
+            console.dir(missingIngredientsByList(ingredientArr, ingredientList, ingredientDimension));*/
         } /* END user input loop*/
 
       return ingredientArr;
@@ -158,6 +168,19 @@
         }
         return value;
     }
+
+      function printIngredientArr(ingredientArr, ingredientDimensionList){
+
+          let value = "\n===================";
+
+          for (let i of ingredientArr){
+              value = value + "\n"+ i.name +
+                  " - " + i.value +
+                  " " + getIngredientDimensionByName(i.name, ingredientDimensionList);
+          }
+          return value;
+
+      }
 
 
 
@@ -387,6 +410,8 @@
     }
 /*END functions for working with variable values*/
 
+
+    /*TESTING function*/
     function quickEnterIngredientArr(ingredientList, ingredientDimension) {
         let arr = [];
         for (let key in ingredientList){
@@ -402,11 +427,54 @@
         }
         return arr;
     }
+    /*END TESTING function*/
+
+
 
     function massageOutput(massage) {
           console.log("====>" + massage);
     }
 
+
+
+      function firstStep(pan, ...ingredientArr ){
+
+        pan.push(...wash(...ingredientArr));
+
+
+      }
+
+
+
+      function wash(...arr) {
+
+        let washedIngredientArr = [];
+
+        arr.forEach((i) => {
+            if(i.name) {
+                i.washed = true;
+                washedIngredientArr.push(i);
+                massageOutput(`the ${i.name} has been washed`);
+            } 
+        })
+          return washedIngredientArr;
+      }
+
+      
+      function boil() {
+
+      }
+
+
+      function getIngredientByName(nameStr, ingredientArr) {
+
+          for(let i of ingredientArr){
+              if( !nameStr || i.name === nameStr.toLowerCase()) {
+                  return i
+              }
+          }
+          return null;
+      }
 
       makeSolyanka(ingredientList, ingredientNamePattern, ingredientDimensionList);
 
