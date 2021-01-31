@@ -27,59 +27,73 @@
           "bulb"            : "1",
           "tomato paste"    : "1",
           "pickles"         : "2-4",
-          "olives"          : "0-10",
-          "salt"            : "0-10",
-          "paper"           : "0-10",
-          "spices"          : "0-10",
-          "green"           : "0-10",
+          "olives"          : "1-10",
+          "salt"            : "1-10",
+          "paper"           : "1-10",
+          "spices"          : "1-10",
+          "green"           : "1-10",
       };
 
       const ingredientDimensionList = {
-        "gram"   : ["meet",
-                    "meet products",
-                    "salt",
-                    "paper",
-                    "spices",
-                    "green"],
+          "gram": ["meet",
+              "meet products",
+              "salt",
+              "paper",
+              "spices",
+              "green"],
 
-        "tbsp"   : ["vegetable Oil",
-                   "tomato paste"],
+          "tbsp": ["vegetable Oil",
+              "tomato paste"],
 
-        "pieces" : ["clove of Garlic",
-                    "bulb",
-                    "pickles",
-                    "olives"],
+          "pieces": ["clove of Garlic",
+              "bulb",
+              "pickles",
+              "olives"]
       }
 
-
-
+      function ingredientObject(ingredientName, ingredientValue, dimension){
+          this.name = ingredientName;
+          this.value = ingredientValue;
+          this.dimension = dimension;
+          this.washed = false;
+          this.sliced = false;
+      }
 
     let stove = {
     }
 
 
+
+
     function makeSolyanka(ingredientList, ingredientPattern, ingredientDimensionList){
-      prepareIngredients(ingredientList, ingredientPattern, ingredientDimensionList);
+      let preparedIngredients = [];
+         preparedIngredients = prepareIngredients(ingredientList, ingredientPattern, ingredientDimensionList);
     }
 
 
+      /*functions for checking and adding ingredients*/
     function prepareIngredients(ingredientList, ingredientPattern, ingredientDimensionList) {
 
       let ingredient = null;
       let ingredientArr = [];
       let ingredientName = "";
-      let ingredientValue = 0;
+      let ingredientValue = {};
       let ingredientDimension = getIngredientDimensionByName(ingredientName, ingredientDimensionList);
+      let isFullIngredient = false;
 
-        while (ingredient != "exit"){
+/*user input loop*/
+        while (!isFullIngredient){
 
             ingredient = inputUserEnterIngredient(ingredientList, ingredientDimensionList);
 
+            if (ingredient === "QUICK_MOD")
+                return quickEnterIngredientArr(ingredientList, ingredientDimensionList);
 
-            /*pattern matching*/
-            if (isIngredientPatternMatching(ingredient, ingredientPattern))
+            /*checking the template entered by the user*/
+            if (isIngredientPatternMatching(ingredient, ingredientPattern)){
                 [ingredientName, ingredientValue] = ingredient.split(/\s+(?=\d+)/);
-            else{
+                ingredientValue = Number(ingredientValue);
+            } else{
                 massageOutput(MSG_NOT_PATTERN);
                 continue;
             }
@@ -87,31 +101,39 @@
 
             /*check for content in the list of ingredients*/
             if (ingredientList[ingredientName])
-                ingredient = new createIngredientObject(ingredientName,ingredientValue, ingredientDimension);
+                ingredient = new ingredientObject(ingredientName,ingredientValue, ingredientDimension);
              else{
                 massageOutput(MSG_NOT_INGREDIENT);
                 continue;
             }
 
 
-            /*check value and add to ingredient array*/
+            /*checking if an ingredient is on the inner ingredient arr and add to ingredient array*/
+            /*if the ingredient has been added before*/
             if (checkIngredientByName(ingredient, ingredientArr)){
-                if(+ingredientList[ingredient.name] <= +findValueIngredientByName(ingredient, ingredientArr)){
+                if(isFullIngredientByList(ingredient, ingredientArr, ingredientList)){
                     massageOutput(MSG_FULL_ARR);
                     continue;
                 } else {
                     sumAndAddIngredient(ingredient, ingredientArr, ingredientList)
                 }
+             /*if the ingredient has not been added before*/
             } else {
                 checkValueAddIngredient(ingredient, ingredientArr, ingredientList);
             }
 
+            let missingIngredients = missingIngredientsByList(ingredientArr, ingredientList, ingredientDimension);
+
+            if(missingIngredients.length === 0)
+                isFullIngredient = true;
 
             console.dir(ingredientArr);
-        }
+            console.dir(missingIngredientsByList(ingredientArr, ingredientList, ingredientDimension));
+        } /* END user input loop*/
 
-      return ingredientArr
+      return ingredientArr;
     }
+
 
 
     function getIngredientDimensionByName(ingredientName, ingredientDimension){
@@ -122,6 +144,7 @@
         }
         return ""
     }
+
 
 
     function printIngredientList(ingredientList, ingredientDimensionList){
@@ -137,9 +160,11 @@
     }
 
 
+
     function inputUserEnterIngredient(ingredientList, ingredientDimensionList) {
           return prompt(MSG_START_MENU + printIngredientList(ingredientList, ingredientDimensionList), "meet 777");
     }
+
 
 
     function isIngredientPatternMatching(userIngredient, ingredientPattern) {
@@ -149,14 +174,6 @@
         return true;
     }
 
-
-    function createIngredientObject(ingredientName, ingredientValue, dimension){
-          this.name = ingredientName;
-          this.value = ingredientValue;
-          this.dimension = dimension;
-          this.washed = false;
-          this.sliced = false;
-    }
 
 
     function checkIngredientByName(ingredientObj, ingredientsArr) {
@@ -168,20 +185,30 @@
     }
 
 
-    function findValueIngredientByName(ingredient, ingredientsArr) {
+
+    function getValueIngredientByObj(ingredient, ingredientsArr) {
           for (let key of ingredientsArr){
               if (key.name === ingredient.name) return key.value;
           }
+          return null;
     }
 
+      function getValueIngredientByName(ingredientName, ingredientsArr) {
+          for (let key of ingredientsArr){
+              if (key.name === ingredientName) return key.value;
+          }
+          return null;
+      }
 
-    function findIngredientByName(ingredient, ingredientsArr) {
+
+      function findIngredientByName(ingredient, ingredientsArr) {
           if (ingredientsArr.length === 0) return null;
           for (let key of ingredientsArr){
-              if (key.name === ingredient.name) return key;
+              if (key.name === ingredient.name) return key.value;
           }
           return null;
     }
+
 
 
     function compareValueByList(ingredient, ingredientList) {
@@ -191,14 +218,7 @@
         let valueByList = ingredientList[ingredientName];
 
         if (valueByList.match(/\d+[-]\d+/)){
-            console.log("enter this")
-            let min;
-            let max;
-            [min, max] = valueByList.split(/[-]/)
-/*
-            if(ingredientValue < min && ingredientValue > min) return 1;
-            else if (ingredientValue < valueByList) return -1;
-*/
+            return compareValueByListVariable(valueByList, ingredientValue)
         }
         else valueByList = Number(valueByList);
 
@@ -206,8 +226,23 @@
         else if (ingredientValue < valueByList) return -1;
         return 0;
 
+    }
+
+
+    function compareValueByListVariable(valueByList, ingredientValue) {
+        let min;
+        let max;
+        [min, max] = valueByList.split(/[-]/)
+
+        if(ingredientValue < min )
+            return -1;
+        else if (ingredientValue > max)
+            return 1;
+        else if (ingredientValue >= min && ingredientValue <= max)
+            return 0
 
     }
+
 
 
     function checkValueAddIngredient(ingredient, ingredientArr, ingredientList) {
@@ -229,9 +264,10 @@
     }
 
 
+
     function sumAndAddIngredient(ingredient, ingredientArr, ingredientList) {
 
-        let ingredientValue = findValueIngredientByName(ingredient, ingredientArr)
+        let ingredientValue = getValueIngredientByObj(ingredient, ingredientArr)
         let duplicateInArr = findIngredientByName(ingredient, ingredientArr);
 
         ingredient.value = Number(ingredient.value) + Number(ingredientValue);
@@ -240,9 +276,10 @@
     }
 
 
+
     function addLessIngredients(ingredient, ingredientArr, ingredientList) {
 
-          ingredient.value =+ ingredient.value;
+/*          ingredient.value =+ ingredient.value;*/
 
           if (compareValueByList(ingredient, ingredientList) === 0) {
               ingredientArr.push(ingredient);
@@ -253,9 +290,14 @@
     }
 
 
+
     function addNotAll(ingredient, ingredientObjs, ingredientList){
 
-        let i = ingredientList[ingredient.name] - ingredient.value ;
+        let i = 0;
+
+        if(isIngredientObjVariable(ingredient, ingredientList)){
+            i = +getMinInVariableValueByList(ingredient, ingredientList) - ingredient.value;
+        } else i = ingredientList[ingredient.name] - ingredient.value;
 
         ingredientObjs.push(ingredient);
         massageOutput(`Ingredient ${ingredient.name} has been prepared`+
@@ -265,14 +307,101 @@
     
     function addExcessIngredients(ingredient, ingredientArr, ingredientList) {
 
-        let i = ingredient.value - ingredientList[ingredient.name];
+        let i = ingredient.value;
 
-        ingredient.value = ingredientList[ingredient.name];
+        if(isIngredientObjVariable(ingredient, ingredientList))
+            ingredient.value = +getMaxInVariableValueByList(ingredient, ingredientList);
+        else
+            ingredient.value = +ingredientList[ingredient.name];
+
         ingredientArr.push(ingredient);
+        i -= ingredient.value;
         massageOutput(`Ingredient ${ingredient.name} has been prepared`+
             `but left ${i} ${ingredient.dimension}`);
     }
 
+
+    
+    function isFullIngredientByList(ingredient, ingredientArr, ingredientList) {
+          let ingredientInArr = +getValueIngredientByObj(ingredient, ingredientArr);
+        if (+ingredientList[ingredient.name] <= ingredientInArr)
+            return true
+        if ( +getMaxInVariableValueByList(ingredient, ingredientList) <= ingredientInArr)
+           return true
+    }
+
+
+/*the function compares an array of ingredients against the recipe list and returns the missing ingredients*/
+    function missingIngredientsByList(ingredientArr, ingredientList, ingredientDimension) {
+        let missingIngredientArr = [];
+
+        for (let key in ingredientList) {
+
+            let ingredient = new ingredientObject(key,
+                getValueIngredientByName(key, ingredientArr),
+                getIngredientDimensionByName(key, ingredientDimension));
+
+            if (!ingredient.value) {
+                ingredient.value = ingredientList[key]
+                missingIngredientArr.push(ingredient);
+            } else if (isIngredientNameVariable(key, ingredientList)) {
+
+                  let ingrInList = +getMinInVariableValueByList(ingredient, ingredientList);
+
+                  if (ingredient.value < ingrInList) {
+                        ingredient.value = ingrInList - ingredient.value;
+                        missingIngredientArr.push(ingredient);
+                    }
+                } else if (ingredient.value < ingredientList[key]) {
+                        ingredient.value = +ingredientList[key] - ingredient.value;
+                        missingIngredientArr.push(ingredient);
+                    }
+
+            }
+
+            return missingIngredientArr;
+
+    }
+
+    /* END functions for checking and adding ingredients*/
+
+/*functions for working with variable values*/
+
+    function isIngredientObjVariable(ingredient, ingredientList) {
+        return ingredientList[ingredient.name].match(/\d+[-]\d+/);
+    }
+
+
+    function isIngredientNameVariable(ingredientName, ingredientList) {
+          return ingredientList[ingredientName].match(/\d+[-]\d+/);
+      }
+
+    function getMinInVariableValueByList(ingredient, ingredientList) {
+        let variableValue = ingredientList[ingredient.name];
+        return variableValue.split(/[-]/)[0]
+    }
+
+    function getMaxInVariableValueByList(ingredient, ingredientList) {
+        let variableValue = ingredientList[ingredient.name];
+        return variableValue.split(/[-]/)[1]
+    }
+/*END functions for working with variable values*/
+
+    function quickEnterIngredientArr(ingredientList, ingredientDimension) {
+        let arr = [];
+        for (let key in ingredientList){
+            if (isIngredientNameVariable(key, ingredientList)){
+                arr.push(new ingredientObject(key,
+                    +getMaxInVariableValueByList({name: key}, ingredientList),
+                    getIngredientDimensionByName(key, ingredientDimension)));
+            } else {
+                arr.push(new ingredientObject(key,
+                    +ingredientList[key],
+                    getIngredientDimensionByName(key, ingredientDimension)));
+            }
+        }
+        return arr;
+    }
 
     function massageOutput(massage) {
           console.log("====>" + massage);
